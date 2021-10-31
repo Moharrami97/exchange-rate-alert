@@ -10,6 +10,14 @@ rules = {
         # preferred default is None
         # "preferred" : None
         "preferred": ["BTC", "IRR"]},
+    "notification": {
+            "enable":False,
+            "receiver":"enter receiver" ,
+            "preferred": {
+                "BTC":{"min":1.8386e-05, "max":1.9485e-05},
+                "IRR":{"min":49222.9, "max":49399.8},
+            }
+    }
 }
 
 password = "enter password"
