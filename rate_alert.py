@@ -1,8 +1,9 @@
 import requests
 import json
-
+from khayyam import jalali_datetime
 from config import url, rules
-
+from c_Email import send_smtp_email
+from c_notification import send_sms
 
 def get_rate():
     response = requests.get(url)
@@ -14,6 +15,23 @@ def get_rate():
 def archive(filename, rates):
     with open(f"archive1/{filename}.json", "w") as f:
         f.write(json.dumps(rates))
+
+
+def check_notification(rates):
+    preferred = rules["notification"]["preferred"]
+    msg = ""
+    for exo in preferred.keys():
+        if rates[exo] <= preferred[exo]["min"]:
+            msg += f"{exo} reached with min: {rates[exo]}"
+        if rates[exo] >= preferred[exo]["max"]:
+            msg += f"{exo} reached with max: {rates[exo]}"
+    return msg
+
+
+def send_notification(msg):
+    now = jalali_datetime.JalaliDatetimenow().strftime('%Y-%B-%d  %A  %H:%M')
+    msg += now
+    send_sms(msg)
 
 
 def send_mail(timestamp, rates):
@@ -36,3 +54,11 @@ if __name__ == "__main__":
 
     if rules["archive"]:
         archive(res["timestamp"], res["rates"])
+
+    if rules["email"]["enable"]:
+        send_mail(res["timestamp"], res["rates"])
+
+    if rules["notification"]["enable"]:
+        notification_msg = check_notification(res["rates"])
+        if check_notification(res["rates"]):
+            send_notification(notification_msg)
