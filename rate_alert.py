@@ -1,7 +1,7 @@
 import requests
 import json
 
-from config_url import url, rules
+from config import url, rules
 
 def get_rate():
     response = requests.get(url)
