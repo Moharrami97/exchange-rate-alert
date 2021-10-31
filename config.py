@@ -5,7 +5,7 @@ url = BASE_PATH + API_KEY
 rules = {
     "archive": True,
     "email": {
-        "receiver": "a18743ad95-111ea6@inbox.mailtrap.io",
+        "receiver": "receiver",
         "enable": False,
         # preferred default is None
         # "preferred" : None

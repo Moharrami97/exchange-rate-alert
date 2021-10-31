@@ -2,8 +2,8 @@ import requests
 import json
 from khayyam import jalali_datetime
 from config import url, rules
-from c_Email import send_smtp_email
-from c_notification import send_sms
+from send_email import send_smtp_email
+from SMS_notification import send_sms
 
 def get_rate():
     response = requests.get(url)
