@@ -12,6 +12,7 @@ def get_rate():
     return None
 
 
+# archive1 file added and write rate alert
 def archive(filename, rates):
     with open(f"archive1/{filename}.json", "w") as f:
         f.write(json.dumps(rates))
@@ -28,12 +29,13 @@ def check_notification(rates):
     return msg
 
 
+#send SMS when the rate alert reaches a certain level
 def send_notification(msg):
     now = jalali_datetime.JalaliDatetimenow().strftime('%Y-%B-%d  %A  %H:%M')
     msg += now
     send_sms(msg)
 
-
+#all rate alert send email 
 def send_mail(timestamp, rates):
     now = jalali_datetime.JalaliDatetime.now().strftime('%Y-%B-%d  %A  %H:%M')
     subject = f"{timestamp} -{now}rates"
