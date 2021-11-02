@@ -5,6 +5,7 @@ from config import url, rules
 from send_email import send_smtp_email
 from SMS_notification import send_sms
 
+
 def get_rate():
     response = requests.get(url)
     if response.status_code == 200:
@@ -28,12 +29,14 @@ def check_notification(rates):
     return msg
 
 
+#send SMS
 def send_notification(msg):
     now = jalali_datetime.JalaliDatetimenow().strftime('%Y-%B-%d  %A  %H:%M')
     msg += now
     send_sms(msg)
 
 
+# send email
 def send_mail(timestamp, rates):
     now = jalali_datetime.JalaliDatetime.now().strftime('%Y-%B-%d  %A  %H:%M')
     subject = f"{timestamp} -{now}rates"
